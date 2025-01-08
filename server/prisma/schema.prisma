@@ -1,0 +1,43 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  password  String
+  username  String   @unique
+  role      String    @default("USER")
+  FitnessActivities FitnessActivities[]
+
+  @@map("users")  
+}
+
+model FitnessActivities {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  type           String
+  duration       Int      
+  caloriesBurned Int
+  weight         Float    
+  age            Int      
+  height         Float    
+  bmi            Float    
+  bmiLabel       String   
+  date           DateTime
+
+  User           Users @relation(fields: [userId], references: [id])
+
+  @@map("fitness_activities") 
+}
+
+
+// @relation(fields: [userId], references: [id])
