@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/registerAndLogin.css">
+</head>
+<body>
+<div class="container-fluid vh-100">
+    <div class="row h-100">
+        <div class="col-md-6 d-flex align-items-center justify-content-center login-image">
+            <img src="./assets/img/login-girl.jpg" alt="Login Illustration" class="img-fluid">
+        </div>
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center login-page">
+            <div class="text-center mb-4">
+                <h1 class="text-pink">Fit</h1>
+                <h1 class="text-pink">Welcome back!</h1>
+                <h4>Please enter your details</h4>
+            </div>
+            <div class="w-75 mb-4">
+                <form id="registrationForm">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control custom-input" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control custom-input" required>
+                    </div>
+                    <button type="submit" id="submitButton" class="btn btn-primary btn-sm w-auto text-center">Login</button>
+                </form>
+            </div>
+            <div class="text-center">
+                <h4>Don’t have an account? <a href="./registration.html">Sign Up</a></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./dist/login.js"></script>
+</body>
+</html>

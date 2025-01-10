@@ -1,0 +1,75 @@
+/* Ensure the sections are full height */
+.login-image, .login-page {
+    height: 100vh;
+}
+
+/* Center the content within the sections */
+.login-page {
+    padding: 20px;
+    background-color: hsl(350, 100%, 92%);
+}
+
+/* Style the form inputs and button */
+.form-control {
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: #E98B9C;
+    border-color: #E98B9C;
+}
+
+.btn-primary:hover {
+    background-color: #D1788A;
+    border-color: #D1788A;
+}
+.login-image img {
+    max-height: 100%;
+    width: auto;
+}
+/* Ensure the image fits its container */
+.login-image img {
+    object-fit: cover;  /* Ensures the image covers the space without stretching */
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom pink color for h1 and make them bold */
+.text-pink {
+    color: #E98B9C; /* Pink color */
+    font-weight: bold; /* Bold text */
+}
+.container-fluid, .row {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Style the input fields with bold underline */
+.custom-input {
+    border: none;
+    border-bottom: 2px solid #E98B9C; /* Pink underline */
+    font-weight: bold;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+/* Optional: Add focus styles for input fields */
+.custom-input:focus {
+    outline: none;
+    border-bottom: 2px solid #D1788A; /* Darker pink for focus */
+}
+/* Center the button */
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Optional: add some space above */
+}
+
+/* Adjust button size */
+button[type="submit"].btn-primary {
+    font-size: 14px;
+    padding: 5px 15px;
+    width: auto;
+}
