@@ -1,0 +1,86 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Vertical Navbar Styling */
+.navbar {
+    width: 80px;
+    background-color: #E98B9C;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.navbar ul li a img{
+    width: 50px;
+}
+
+/* Main Section Styling */
+.main_section {
+    margin-left: 80px; /* Offset to the right of the fixed navbar */
+    padding: 20px;
+    height: 100vh; /* Full height of the viewport */
+}
+
+/* Centered Text Styling */
+.moto h1, .moto h3 {
+    margin: 10px 0;
+}
+
+.banner_img img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+
+/* Button Styling */
+.login_button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* Main Section Text Styling */ 
+.main_section h3, 
+.main_section h4 {
+    color: #E98B9C; /* Pink color */
+    font-weight: bold; /* Bold text */
+}
+.main_section h1{
+    color: #E98B9C;
+    font-weight: 800;
+ 
+}
+
+.navbar ul li:first-child a h3 {
+    font-weight: bold;
+    
+}
+
+/* Custom pink color for text */
+.text-pink {
+    color: #E98B9C; /* Pink color */
+    font-weight: bold; /* Bold text */
+}
+
+/* Custom button styling */
+.btn-outline-pink {
+    color: #E98B9C; /* Pink text color */
+    background-color: white; /* White background */
+    border: 2px solid #E98B9C; /* Pink border */
+    font-weight: bold; /* Bold text */
+}
+
+/* Change the button's background and text color on hover */
+.btn-outline-pink:hover {
+    background-color: #E98B9C; /* Pink background */
+    color: white; /* White text */
+}
