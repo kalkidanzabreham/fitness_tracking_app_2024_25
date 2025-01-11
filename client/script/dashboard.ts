@@ -1,4 +1,114 @@
-let bmiData: number[] = [];
+
+/*  check user login */
+// Retrieve userId from localStorage after login
+const userId = localStorage.getItem("userId");
+
+if (!userId) {
+  // If the user is not logged in, show the message and clear the content
+  document.body.innerHTML = `
+    <div style="text-align: center; margin-top: 20vh;">
+      <h1 style="font-size: 4rem; color: red;">ERROR</h1>
+      <h2 style="font-size: 3rem; color: red;">You must log in to see your dashboard</h2>
+    </div>
+  `;
+
+  // Redirect to the login page after 3 seconds
+  setTimeout(() => {
+    window.location.href = "/fitness_tracking_app_2024_25/client/login.html";
+  }, 4000); // 3 seconds delay
+} else {
+  // Use the userId to fetch the relevant data
+  fetchPreviousData(parseInt(userId)); // Fetch activity and BMI data
+  fetchProgress(parseInt(userId)); // Fetch progress summary
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Fetch username from local storage
+  const username: string | null = localStorage.getItem("username");
+
+  // Get the div where the username will be displayed
+  const usernameDisplay = document.getElementById(
+    "usernameDisplay"
+  ) as HTMLDivElement;
+
+  if (username) {
+    usernameDisplay.textContent = `Hello, ${username}!`;
+  } else {
+    usernameDisplay.textContent = "Hello, Guest!";
+  }
+});
+
+/*  activity crud from */
+
+const addActivityForm = document.getElementById(
+  "addActivityForm"
+) as HTMLFormElement;
+addActivityForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  console.log("Form submitted"); // Debugging line
+
+  const workout = (document.getElementById("workout") as HTMLSelectElement)
+    .value;
+  const duration = parseInt(
+    (document.getElementById("duration") as HTMLInputElement).value
+  );
+  const caloriesBurned = parseInt(
+    (document.getElementById("caloriesBurned") as HTMLInputElement).value
+  );
+  const date = new Date().toLocaleDateString();
+
+  console.log(workout, duration, caloriesBurned); // Log form values for debugging
+
+  const activity = { type: workout, duration, caloriesBurned, date };
+
+  if (currentActivityId) {
+    // Update existing activity
+    fetch(`http://localhost:4000/activities/${currentActivityId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(activity),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        console.log("Activity updated successfully");
+        currentActivityId = null;
+        addActivityForm.reset();
+        if (userId) {
+          fetchPreviousData(parseInt(userId));
+          fetchProgress(parseInt(userId));
+        }
+        // Refresh the activity list
+      })
+      .catch((error) => console.error("Error updating activity:", error));
+  } else {
+    // Add new activity
+    fetch(`http://localhost:4000/activities/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(activity),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        console.log("Activity added successfully");
+        addActivityForm.reset();
+
+        if (userId) {
+          fetchPreviousData(parseInt(userId));
+          fetchProgress(parseInt(userId));
+        } // Refresh the activity list
+      })
+      .catch((error) => console.error("Error adding activity:", error));
+  }
+});
+
+/* activity adding form */
+
 let activityData: {
   id: number;
   type: string;
@@ -8,18 +118,8 @@ let activityData: {
 }[] = [];
 let activityLabels: string[] = [];
 let currentActivityId: number | null = null; // To track the activity being updated
-// Retrieve userId from localStorage after login
-const userId = localStorage.getItem("userId");
 
-if (!userId) {
-  alert("User not logged in");
-  // Optionally, redirect to login page if the user is not logged in
-  window.location.href = "/fitness_tracking_app_2024_25/client/login.html";
-} else {
-  // Use the userId to fetch the relevant data
-  fetchPreviousData(parseInt(userId)); // Fetch activity and BMI data
-  fetchProgress(parseInt(userId)); // Fetch progress summary
-}
+
 function fetchPreviousData(userId: number): void {
   fetch(`http://localhost:4000/activities/${userId}`)
     .then((response) => response.json())
@@ -67,7 +167,15 @@ function populateActivitiesTable(): void {
 
     // Update button
     const updateButton = document.createElement("button");
-    updateButton.textContent = "Update";
+    updateButton.textContent = "Edit";
+    updateButton.style.backgroundColor = "blue";
+    updateButton.style.color = "white";
+    updateButton.style.marginRight = "8px";
+    updateButton.style.paddingLeft = "17px"
+    updateButton.style.paddingRight = "20px"
+    updateButton.style.marginBottom = "10px"
+    updateButton.classList.add("action-button");
+
     updateButton.addEventListener("click", () => {
       currentActivityId = activity.id;
       (document.getElementById("workout") as HTMLSelectElement).value =
@@ -81,6 +189,12 @@ function populateActivitiesTable(): void {
     // Delete button
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
+    deleteButton.style.backgroundColor = "red";
+
+    deleteButton.style.color = "white";
+    deleteButton.style.paddingLeft = "11px";
+    deleteButton.classList.add("action-button");
+
     deleteButton.addEventListener("click", () => {
       if (activity.id) deleteActivity(activity.id);
     });
@@ -110,186 +224,136 @@ function deleteActivity(activityId: number): void {
     .catch((error) => console.error("Error deleting activity:", error));
 }
 
-const addActivityForm = document.getElementById(
-  "addActivityForm"
-) as HTMLFormElement;
-addActivityForm.addEventListener("submit", function (event) {
+/* bmi calculator */ 
+let bmiData: number[] = [];
+const bmiForm = document.getElementById("bmiForm") as HTMLFormElement;
+bmiForm.addEventListener("submit", function (event: Event) {
   event.preventDefault();
-  console.log("Form submitted"); // Debugging line
-  
-  const workout = (document.getElementById("workout") as HTMLSelectElement)
-      .value;
-    const duration = parseInt(
-      (document.getElementById("duration") as HTMLInputElement).value
-    );
-    const caloriesBurned = parseInt(
-      (document.getElementById("caloriesBurned") as HTMLInputElement).value
-    );
-    const date = new Date().toLocaleDateString();
-  
-    console.log(workout, duration, caloriesBurned); // Log form values for debugging
-  
-    const activity = { type: workout, duration, caloriesBurned, date };
-  
-    if (currentActivityId) {
-      // Update existing activity
-      fetch(`http://localhost:4000/activities/${currentActivityId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(activity),
-      })
-        .then((response) => response.json())
-        .then(() => {
-          console.log("Activity updated successfully");
-          currentActivityId = null;
-          addActivityForm.reset();
-          if(userId){
-            fetchPreviousData(parseInt(userId)); 
-            fetchProgress(parseInt(userId));
-          }
-          // Refresh the activity list
-        })
-        .catch((error) => console.error("Error updating activity:", error));
-    } else {
-      // Add new activity
-      fetch(`http://localhost:4000/activities/${userId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(activity),
-      })
-        .then((response) => response.json())
-        .then(() => {
-          console.log("Activity added successfully");
-          addActivityForm.reset();
-  
-          if (userId) {
-            fetchPreviousData(parseInt(userId));
-            fetchProgress(parseInt(userId));
-          } // Refresh the activity list
-        })
-        .catch((error) => console.error("Error adding activity:", error));
-    }
-  });
-  
-  
-  const bmiForm = document.getElementById("bmiForm") as HTMLFormElement;
-  bmiForm.addEventListener("submit", function (event: Event) {
-    event.preventDefault();
-  
-    const weight = parseFloat(
-      (document.getElementById("weight") as HTMLInputElement).value
-    );
-    const height = parseFloat(
-      (document.getElementById("height") as HTMLInputElement).value
-    );
-  
-    if (weight <= 0 || height <= 0) {
-      alert("Please provide valid weight and height.");
-      return;
-    }
-  
-    const bmi = weight / (height * height);
-    let bmiLabel = "Normal";
-  
-    if (bmi < 18.5) {
-      bmiLabel = "Underweight";
-    } else if (bmi >= 25 && bmi < 30) {
-      bmiLabel = "Overweight";
-    } else if (bmi >= 30) {
-      bmiLabel = "Obese";
-    }
-  
-    bmiData.push(bmi);
-    activityLabels.push(new Date().toLocaleDateString());
-  
-    (
-      document.getElementById("bmiResult") as HTMLElement
-    ).innerText = `Your BMI: ${bmi.toFixed(2)} (${bmiLabel})`;
-  });
-  
-  // fetchPreviousData(parseInt(userId));
-  // Function to calculate kilograms lost based on total calories burned
-  function calculateKilogramsLost(): void {
-    // Get the total calories burned from the progress summary
-    const progressSummary: HTMLElement | null = document.getElementById("progressSummary");
-    if (!progressSummary) {
-      console.error('Progress summary element not found');
-      return;
-    }
-  
-    const totalCaloriesText: string = (progressSummary.querySelector("p:nth-child(2)") as HTMLElement)?.innerText || '';
-    
-    const totalCalories: number = parseInt(
-      totalCaloriesText
-        .replace("Total Calories Burned: ", "")
-        .replace(" kcal", "")
-    );
-  
-    if (isNaN(totalCalories)) {
-      console.error('Total calories is not a valid number');
-      return;
-    }
-  
-    // Convert calories to kilograms lost
-    const kilogramsLost: number = totalCalories / 7700; // 1 kg of fat is roughly equivalent to 7700 calories
-  
-    // Display the result next to the button
-    const resultElement: HTMLElement | null = document.getElementById("kilogramsLostResult");
-    if (resultElement) {
-      resultElement.innerText = `Kilograms Lost: ${kilogramsLost.toFixed(2)} kg`;
-    }
+
+  const weight = parseFloat(
+    (document.getElementById("weight") as HTMLInputElement).value
+  );
+  const height = parseFloat(
+    (document.getElementById("height") as HTMLInputElement).value
+  );
+
+  if (weight <= 0 || height <= 0) {
+    alert("Please provide valid weight and height.");
+    return;
   }
-  
-  // Interface for the progress data structure returned from the API
-  interface ProgressData {
-    totalDuration: number;
-    totalCaloriesBurned: number;
-    averageBMI: number;
+
+  const bmi = weight / (height * height);
+  let bmiLabel = "Normal";
+
+  if (bmi < 18.5) {
+    bmiLabel = "Underweight";
+  } else if (bmi >= 25 && bmi < 30) {
+    bmiLabel = "Overweight";
+  } else if (bmi >= 30) {
+    bmiLabel = "Obese";
   }
-  
-  // Function to fetch and display progress summary
-  async function fetchProgress(userId: number): Promise<void> {
-    try {
-      const response: Response = await fetch(`http://localhost:4000/progress/${userId}`);
-      const progressData: ProgressData = await response.json();
-  
-      // Display Progress Summary
-      const progressSummary: HTMLElement | null = document.getElementById("progressSummary");
-      if (progressSummary) {
-        progressSummary.innerHTML = `
+
+  bmiData.push(bmi);
+  activityLabels.push(new Date().toLocaleDateString());
+
+  (
+    document.getElementById("bmiResult") as HTMLElement
+  ).innerText = `Your BMI: ${bmi.toFixed(2)} (${bmiLabel})`;
+});
+
+// Interface for the progress data structure returned from the API
+interface ProgressData {
+  totalDuration: number;
+  totalCaloriesBurned: number;
+}
+
+
+/* Progress Tracker */
+
+// Function to fetch and display progress summary
+async function fetchProgress(userId: number): Promise<void> {
+  try {
+    const response: Response = await fetch(
+      `http://localhost:4000/progress/${userId}`
+    );
+    const progressData: ProgressData = await response.json();
+
+    // Display Progress Summary
+    const progressSummary: HTMLElement | null =
+      document.getElementById("progressSummary");
+    if (progressSummary) {
+      progressSummary.innerHTML = `
           <p><strong>Total Duration:</strong> ${progressData.totalDuration} minutes</p>
           <p><strong>Total Calories Burned:</strong> ${progressData.totalCaloriesBurned} kcal</p>
-          <p><strong>Average BMI:</strong> ${progressData.averageBMI.toFixed(2)}</p>
         `;
-      }
-    } catch (error) {
-      console.error("Error fetching progress data:", error);
     }
+  } catch (error) {
+    console.error("Error fetching progress data:", error);
   }
-  
-  // Fetch progress for user with ID 1 (You can change the user ID as needed)
-  if(userId){
-    fetchProgress(parseInt(userId));
+}
+
+
+/*  lost kilogram calculator */
+
+// fetchPreviousData(parseInt(userId));
+// Function to calculate kilograms lost based on total calories burned
+function calculateKilogramsLost(): void {
+  // Get the total calories burned from the progress summary
+  const progressSummary: HTMLElement | null =
+    document.getElementById("progressSummary");
+  if (!progressSummary) {
+    console.error("Progress summary element not found");
+    return;
   }
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    // Get the logout button element
-    const logoutButton = document.getElementById("logoutButton") as HTMLAnchorElement;
-  
-    // Ensure the element is found and is an HTMLAnchorElement
-    if (logoutButton) {
-      // Add an event listener to the logout button
-      logoutButton.addEventListener("click", (event: MouseEvent) => {
-        event.preventDefault(); // Prevent the default link behavior
-  
-        // Remove the token from local storage
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId")
-        window.location.href = "/fitness_tracking_app_2024_25/client/login.html";
-      });
-    }
-  });
+
+  const totalCaloriesText: string =
+    (progressSummary.querySelector("p:nth-child(2)") as HTMLElement)
+      ?.innerText || "";
+
+  const totalCalories: number = parseInt(
+    totalCaloriesText
+      .replace("Total Calories Burned: ", "")
+      .replace(" kcal", "")
+  );
+
+  if (isNaN(totalCalories)) {
+    console.error("Total calories is not a valid number");
+    return;
+  }
+
+  // Convert calories to kilograms lost
+  const kilogramsLost: number = totalCalories / 7700; // 1 kg of fat is roughly equivalent to 7700 calories
+
+  // Display the result next to the button
+  const resultElement: HTMLElement | null = document.getElementById(
+    "kilogramsLostResult"
+  );
+  if (resultElement) {
+    resultElement.innerText = ` You Lost: ${kilogramsLost.toFixed(2)} kg`;
+  }
+}
+
+
+if (userId) {
+  fetchProgress(parseInt(userId));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Get the logout button element
+  const logoutButton = document.getElementById(
+    "logoutButton"
+  ) as HTMLAnchorElement;
+
+  // Ensure the element is found and is an HTMLAnchorElement
+  if (logoutButton) {
+    // Add an event listener to the logout button
+    logoutButton.addEventListener("click", (event: MouseEvent) => {
+      event.preventDefault(); // Prevent the default link behavior
+
+      // Remove the token from local storage
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      window.location.href = "/fitness_tracking_app_2024_25/client/login.html";
+    });
+  }
+});

@@ -26,6 +26,10 @@
     width: 100%;
 }
 
+button{
+    margin: 0 auto;
+    align-items: center;
+}
 .btn-primary {
     background-color: #E98B9C;
     border-color: #E98B9C;
@@ -79,9 +83,23 @@
     margin-top: 20px; /* Optional: add some space above */
 }
 
+
 /* Adjust button size */
 button[type="submit"].btn-primary {
     font-size: 14px;
     padding: 5px 15px;
     width: auto;
+}
+.eye-icon {
+  position: absolute;
+  top: 67%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;  /* Adjust width and height as needed */
+  height: 20px;
+}
+
+.custom-input {
+  padding-right: 35px; /* Provide space for the eye icon */
 }

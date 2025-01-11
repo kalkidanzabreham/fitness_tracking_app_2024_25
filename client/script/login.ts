@@ -1,18 +1,39 @@
-
 (() => {
-  const registrationForm = document.getElementById(
+  const loginForm = document.getElementById(
     "registrationForm"
   ) as HTMLFormElement;
   const submitButton = document.getElementById(
     "submitButton"
   ) as HTMLButtonElement;
 
-  if (!registrationForm || !submitButton) {
+  // Create a message element
+  const messageElement = document.createElement("div");
+  loginForm.insertBefore(messageElement, submitButton); 
+
+  // Style for the message element
+  messageElement.style.marginBottom = "15px"; 
+  messageElement.style.padding = "10px"; 
+  messageElement.style.borderRadius = "5px"; 
+  messageElement.style.fontWeight = "bold"; 
+
+  if (!loginForm || !submitButton) {
     console.error("Form elements not found.");
     return;
   }
 
-  registrationForm.addEventListener("submit", async (event: Event) => {
+  // Function to show message
+  function showMessage(message: string, type: "success" | "error") {
+    messageElement.textContent = message;
+    messageElement.style.color = "white"; 
+
+    if (type === "success") {
+      messageElement.style.backgroundColor = "green"; 
+    } else {
+      messageElement.style.backgroundColor = "red"; 
+    }
+  }
+
+  loginForm.addEventListener("submit", async (event: Event) => {
     event.preventDefault();
 
     const emailInput = (document.getElementById("email") as HTMLInputElement)
@@ -21,8 +42,8 @@
       document.getElementById("password") as HTMLInputElement
     ).value;
 
-    if (!emailInput  || !passwordInput) {
-      alert("Both fields are required.");
+    if (!emailInput || !passwordInput) {
+      showMessage("Both fields are required.", "error");
       return;
     }
 
@@ -42,12 +63,14 @@
       if (!response.ok) {
         const errorData = await response.json();
 
-        // Check if the error is due to invalid credentials
+        // Check if the error is due to invalid credentials (401)
         if (response.status === 401) {
-          alert("Invalid credentials. Please try again.");
+          showMessage("Invalid credentials. Please try again.", "error");
         } else {
-          throw new Error(
-            errorData.message || "An error occurred. Please try again."
+          // If it's any other type of error, throw it
+          showMessage(
+            errorData.message || "An error occurred. Please try again.",
+            "error"
           );
         }
 
@@ -57,15 +80,34 @@
       const data = await response.json();
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.user.id);
-      alert("Successfully logged in!");
+      localStorage.setItem("username", data.user.username);
+      showMessage("Successfully logged in!", "success");
 
+      // Automatically redirect to the dashboard after 3 seconds
       setTimeout(() => {
         window.location.href =
           "/fitness_tracking_app_2024_25/client/dashboard.html";
-      }, 2000);
+      }, 3000); // Delay of 3 seconds
     } catch (err) {
       console.error(err);
-      alert("An error occurred. Please try again.");
+      showMessage("An error occurred. Please try again.", "error");
+    }
+  });
+
+  const passwordInput = document.getElementById("password") as HTMLInputElement;
+  const togglePassword = document.getElementById(
+    "togglePassword"
+  ) as HTMLImageElement;
+
+  togglePassword.addEventListener("click", () => {
+    // Toggle password visibility
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text"; // Show the password
+      togglePassword.src = "/fitness_tracking_app_2024_25/client/assets/img/eye_open.png"; 
+    } else {
+      passwordInput.type = "password"; // Hide the password
+      togglePassword.src =
+        "/fitness_tracking_app_2024_25/client/assets/img/eye_closed.png"; 
     }
   });
 })();

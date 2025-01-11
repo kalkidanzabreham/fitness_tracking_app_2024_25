@@ -27,11 +27,11 @@ model FitnessActivities {
   type           String
   duration       Int      
   caloriesBurned Int
-  weight         Float    
-  age            Int      
-  height         Float    
-  bmi            Float    
-  bmiLabel       String   
+  weight         Float?   
+  age            Int?      
+  height         Float?    
+  bmi            Float?    
+  bmiLabel       String?   
   date           DateTime
 
   User           Users @relation(fields: [userId], references: [id])

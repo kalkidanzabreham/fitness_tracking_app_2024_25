@@ -5,7 +5,7 @@ export class AuthDtoRegister {
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @MinLength(4)
   password: string;
 
   @IsString()
@@ -21,6 +21,6 @@ export class AuthDtoLogin {
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @MinLength(4)
   password: string;
 }

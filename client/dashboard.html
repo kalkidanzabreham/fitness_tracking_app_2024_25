@@ -23,7 +23,7 @@
         </li>
         <li>
           <a href="./login.html" id="logoutButton" class="text-white d-block p-3 text-center">
-            <img src="./assets/img/login.png" alt="" />
+            <img src="./assets/img/logout.png" alt="" />
           </a>
         </li>
         
@@ -32,77 +32,82 @@
 
     <section class="middle-section" >
       <div>
+
+        <!-- Div to display the user's name -->
+        <h1 id="usernameDisplay" class="mb-3"></h1>
         <h1>Fitness Activity Tracker</h1>
 
         <!-- Form to input fitness activity data -->
-        <div class="d-flex">
-          <!-- Left Side -->
-          <div class="left-side flex-fill pe-4" style="flex: 0 0 65%;">
-            <div>
-              <form id="addActivityForm">
-                <h3>Add Activity</h3>
-                <label for="workout">Workout Type:</label>
-                <select id="workout" class="form-select" required>
-                  <option value="Running">Running</option>
-                  <option value="Walking">Walking</option>
-                  <option value="Cycling">Cycling</option>
-                  <option value="Swimming">Swimming</option>
-                  <option value="Yoga">Yoga</option>
-                </select>
-                <br />
-                <label for="duration" >Duration (minutes):</label>
-                <input type="number" id="duration" class="form-control" required min="1" />
-                <br />
-                <label for="caloriesBurned">Calories Burned:</label>
-                <input type="number" id="caloriesBurned" class="form-control" required min="1" />
-                <br />
-                <button type="submit" class="btn btn-pink">Add Activity</button>
-              </form>
-            </div>
-            <div class="existing-section">
-              <h3>Existing Activities</h3>
-              <table id="activitiesTable" class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Workout Type</th>
-                    <th>Duration (min)</th>
-                    <th>Calories Burned</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Activity rows will be inserted here -->
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div class="row">
+  <!-- Left Side -->
+  <div class="col-md-8 col-12">
+    <div>
+      <form id="addActivityForm">
+        <h3>Add Activity</h3>
+        <label for="workout">Workout Type:</label>
+        <select id="workout" class="form-select" required>
+          <option value="Running">Running</option>
+          <option value="Walking">Walking</option>
+          <option value="Cycling">Cycling</option>
+          <option value="Swimming">Swimming</option>
+          <option value="Yoga">Yoga</option>
+        </select>
+        <br />
+        <label for="duration">Duration (minutes):</label>
+        <input type="number" id="duration" class="form-control" required min="1" />
+        <br />
+        <label for="caloriesBurned">Calories Burned:</label>
+        <input type="number" id="caloriesBurned" class="form-control" required min="1" />
+        <br />
+        <button type="submit" class="btn btn-pink">Add Activity</button>
+      </form>
+    </div>
+    <div class="existing-section">
+      <h3>Existing Activities</h3>
+      <table id="activitiesTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Workout Type</th>
+            <th>Duration (min)</th>
+            <th>Calories Burned</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Activity rows will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-          <!-- Right Side -->
-          <div class="right-side" style="flex: 0 0 35%;">
-            <form id="bmiForm">
-              <h3>Calculate BMI</h3>
-              <label for="weight">Weight (kg):</label>
-              <input type="number" id="weight" class="form-control" required min="1" />
-              <br />
-              <label for="height">Height (m):</label>
-              <input type="number" id="height" class="form-control" required min="0.1" step="0.01" />
-              <br />
-              <button type="submit" class="btn btn-pink">Calculate BMI</button>
-            </form>
+  <!-- Right Side -->
+  <div class="col-md-4 col-12">
+    <form id="bmiForm">
+      <h3>Calculate BMI</h3>
+      <label for="weight">Weight (kg):</label>
+      <input type="number" id="weight" class="form-control" required min="1" />
+      <br />
+      <label for="height">Height (m):</label>
+      <input type="number" id="height" class="form-control" required min="0.1" step="0.01" />
+      <br />
+      <button type="submit" class="btn btn-pink">Calculate BMI</button>
+    </form>
 
-            <div id="bmiResult" class="mt-3"></div>
-            <div>
-              <h3>Progress Summary</h3>
-              <div id="progressSummary">
-                <!-- Total Duration, Total Calories, Average BMI will be populated here -->
-              </div>
-              <div class="d-flex justify-content-between">
-                <button onclick="calculateKilogramsLost()" class="btn btn-pink">Calculate Kilograms Lost</button>
-                <span id="kilogramsLostResult"></span> <!-- This is where the result will be displayed -->
-              </div>
-            </div>
-          </div>
-        </div>
+    <div id="bmiResult" class="mt-3"></div>
+    <div>
+      <h1 class="mb-4">Progress Summary</h1>
+      <div id="progressSummary">
+        <!-- Total Duration, Total Calories, Average BMI will be populated here -->
+      </div>
+      <div class="kgLost">
+        <button onclick="calculateKilogramsLost()" class="btn btn-pink">Calculate Kilograms Lost</button>
+        <span id="kilogramsLostResult"></span> <!-- This is where the result will be displayed -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
       </div>
     </section>
 

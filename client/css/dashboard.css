@@ -111,7 +111,9 @@ td {
 .form-control {
   width: 50%; /* Decrease the input box size by half */
 }
-
+#progressSummary{
+  font-size: 20px;
+}
 /* Pink button color */
 .btn-pink {
   background-color: #E98B9C;
@@ -133,7 +135,10 @@ td {
 .form-control {
   width: 50%; /* Decrease the input box size by half */
 }
-
+#bmiResult{
+  margin-bottom: 30px;
+  font-size: 30px;
+}
 /* Pink button color */
 .btn-pink {
   background-color: #e91e63; /* Pink color */
@@ -148,11 +153,17 @@ td {
 .button-gap {
   margin-right: 10px; /* Space between update and delete buttons */
 }
+.kgLost{
+  display: block;
+}
   #kilogramsLostResult {
         margin-top: 10px; /* Gap between button and result */
-        display: block;
+        font-size: 20px;
         font-weight: bold;
-        color: #e91e63; /* Pink color for the result */
+        color: #e91e63; 
+       
+       
+        /* Pink color for the result */
       }
 
        #bmiForm {
@@ -161,5 +172,52 @@ td {
         border-radius: 8px;
       }
       #workout {
-        width: 50%;
+        width: 60%;
       }
+
+/* Button styling */
+.btn-pink {
+  background-color: #D81B60; /* Your custom button color */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-pink:hover {
+  background-color: #E98B9C; /* Light hover effect */
+}
+
+/* Form elements and table styling */
+.form-select,
+.form-control {
+  width: 60%; /* Ensure form fields take full width */
+  margin-bottom: 15px; /* Adds space between fields */
+}
+
+/* Styling for the activity table */
+#activitiesTable {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+#activitiesTable th,
+#activitiesTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+#activitiesTable th {
+  background-color: #f0f0f0;
+}
+
+/* Styling for the form labels and headers */
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+}

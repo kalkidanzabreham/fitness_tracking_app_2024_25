@@ -37,7 +37,7 @@ export class ProgressService {
     const bmiData = activities.map((a) => a.bmi);
 
     const bmiTrend = activities.map((a) => ({
-      date: a.date.toISOString(), // Format date to ISO string
+      date: a.date.toISOString(),
       bmi: a.bmi,
       bmiLabel: a.bmiLabel,
     }));
@@ -52,4 +52,3 @@ export class ProgressService {
     };
   }
 }
-
