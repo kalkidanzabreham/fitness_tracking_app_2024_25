@@ -1,3 +1,15 @@
+.navbar {
+    width: 80px;
+    background-color: #E98B9C;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.navbar ul li a img {
+    width: 50px;
+}
 /* Ensure the sections are full height */
 .login-image, .login-page {
     height: 100vh;
