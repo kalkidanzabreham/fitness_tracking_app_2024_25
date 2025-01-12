@@ -70,7 +70,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
             localStorage.setItem("token", data.token);
             localStorage.setItem("userId", data.user.id);
             localStorage.setItem("username", data.user.username);
-            showMessage("Successfully logged in!", "success");
+            showMessage("Successfully logging in!", "success");
             // Automatically redirect to the dashboard after 3 seconds
             setTimeout(() => {
                 window.location.href =
