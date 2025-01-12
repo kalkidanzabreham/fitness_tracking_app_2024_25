@@ -170,6 +170,8 @@ function populateActivitiesTable(): void {
     updateButton.textContent = "Edit";
     updateButton.style.backgroundColor = "blue";
     updateButton.style.color = "white";
+    updateButton.style.fontSize ="18px"
+    updateButton.style.fontWeight = "600"
     updateButton.style.marginRight = "8px";
     updateButton.style.paddingLeft = "17px"
     updateButton.style.paddingRight = "20px"
@@ -189,8 +191,9 @@ function populateActivitiesTable(): void {
     // Delete button
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
-    deleteButton.style.backgroundColor = "red";
-
+    deleteButton.style.backgroundColor = "darkred";
+    deleteButton.style.fontSize = "18px"
+    deleteButton.style.fontWeight = "600"
     deleteButton.style.color = "white";
     deleteButton.style.paddingLeft = "11px";
     deleteButton.classList.add("action-button");

@@ -44,19 +44,20 @@ body {
 .login_button {
     margin-top: 20px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
+    font-size: 700;
 }
 
 
 /* Main Section Text Styling */ 
 .main_section h3, 
 .main_section h4 {
-    color: #E98B9C; /* Pink color */
+    color: #e91e63; /* Pink color */
     font-weight: bold; /* Bold text */
 }
 .main_section h1{
-    color: #E98B9C;
+    color:#e91e63;
     font-weight: 800;
  
 }
@@ -68,15 +69,15 @@ body {
 
 /* Custom pink color for text */
 .text-pink {
-    color: #E98B9C; /* Pink color */
+    color:#e91e63; /* Pink color */
     font-weight: bold; /* Bold text */
 }
 
 /* Custom button styling */
 .btn-outline-pink {
-    color: #E98B9C; /* Pink text color */
+    color:#e91e63; /* Pink text color */
     background-color: white; /* White background */
-    border: 2px solid #E98B9C; /* Pink border */
+    border: 2px solid #e91e63; /* Pink border */
     font-weight: bold; /* Bold text */
 }
 

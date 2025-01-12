@@ -31,13 +31,14 @@ button{
     align-items: center;
 }
 .btn-primary {
-    background-color: #E98B9C;
-    border-color: #E98B9C;
+    background-color: #b9013e;
+    border-color: #e91e63;
+    font-size: 18px;
 }
 
 .btn-primary:hover {
-    background-color: #D1788A;
-    border-color: #D1788A;
+    background-color: #f10655;
+    border-color:  #f10655;
 }
 .login-image img {
     max-height: 100%;
@@ -52,8 +53,9 @@ button{
 
 /* Custom pink color for h1 and make them bold */
 .text-pink {
-    color: #E98B9C; /* Pink color */
-    font-weight: bold; /* Bold text */
+    color: #e91e63; /* Pink color */
+    font-weight: bold; 
+    /* Bold text */
 }
 .container-fluid, .row {
     margin: 0;
@@ -86,8 +88,9 @@ button{
 
 /* Adjust button size */
 button[type="submit"].btn-primary {
-    font-size: 14px;
-    padding: 5px 15px;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px 20px;
     width: auto;
 }
 .eye-icon {
@@ -102,4 +105,7 @@ button[type="submit"].btn-primary {
 
 .custom-input {
   padding-right: 35px; /* Provide space for the eye icon */
+}
+.sign_Link a {
+    color: rgb(0, 0, 255);
 }
