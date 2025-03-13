@@ -62,7 +62,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         formData.append("email", emailInput);
         formData.append("password", passwordInput);
         try {
-            const response = yield fetch("http://localhost:4000/auth/register", {
+            const response = yield fetch("https://fitnessback-22sb5vjxa-kalkidanzabrehams-projects.vercel.app/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",

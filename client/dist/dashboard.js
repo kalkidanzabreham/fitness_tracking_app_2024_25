@@ -55,7 +55,7 @@ addActivityForm.addEventListener("submit", function (event) {
     const activity = { type: workout, duration, caloriesBurned, date };
     if (currentActivityId) {
         // Update existing activity
-        fetch(`http://localhost:4000/activities/${currentActivityId}`, {
+        fetch(`https://fitnessback-22sb5vjxa-kalkidanzabrehams-projects.vercel.app/activities/${currentActivityId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -77,7 +77,7 @@ addActivityForm.addEventListener("submit", function (event) {
     }
     else {
         // Add new activity
-        fetch(`http://localhost:4000/activities/${userId}`, {
+        fetch(`https://fitnessback-22sb5vjxa-kalkidanzabrehams-projects.vercel.app/activities/${userId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -101,7 +101,7 @@ let activityData = [];
 let activityLabels = [];
 let currentActivityId = null; // To track the activity being updated
 function fetchPreviousData(userId) {
-    fetch(`http://localhost:4000/activities/${userId}`)
+    fetch(`https://fitnessback-22sb5vjxa-kalkidanzabrehams-projects.vercel.app/activities/${userId}`)
         .then((response) => response.json())
         .then((data) => {
         activityData = data;
@@ -109,7 +109,7 @@ function fetchPreviousData(userId) {
         populateActivitiesTable();
     })
         .catch((error) => console.error("Error fetching activities:", error));
-    fetch(`http://localhost:4000/progress/${userId}`)
+    fetch(`https://fitnessback-22sb5vjxa-kalkidanzabrehams-projects.vercel.app/progress/${userId}`)
         .then((response) => response.json())
         .then((data) => {
         bmiData = data.bmiData;
@@ -169,7 +169,7 @@ function populateActivitiesTable() {
     });
 }
 function deleteActivity(activityId) {
-    fetch(`http://localhost:4000/activities/${activityId}`, {
+    fetch(`https://fitnessback-22sb5vjxa-kalkidanzabrehams-projects.vercel.app/activities/${activityId}`, {
         method: "DELETE",
     })
         .then((response) => response.json())
@@ -215,7 +215,7 @@ bmiForm.addEventListener("submit", function (event) {
 function fetchProgress(userId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch(`http://localhost:4000/progress/${userId}`);
+            const response = yield fetch(`https://fitnessback-22sb5vjxa-kalkidanzabrehams-projects.vercel.app/progress/${userId}`);
             const progressData = yield response.json();
             // Display Progress Summary
             const progressSummary = document.getElementById("progressSummary");
