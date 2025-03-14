@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,6 +5,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  
 }
 
 model Users {
@@ -15,7 +15,8 @@ model Users {
   email     String   @unique
   password  String
   username  String   @unique
-  role      String    @default("USER")
+  role      String   @default("USER")
+
   FitnessActivities FitnessActivities[]
 
   @@map("users")  
@@ -38,6 +39,3 @@ model FitnessActivities {
 
   @@map("fitness_activities") 
 }
-
-
-// @relation(fields: [userId], references: [id])
